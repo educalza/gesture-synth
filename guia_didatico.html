@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Guia Rápido e Didático - Gesture Synth</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #0b0d13;
+      color: #e2e8f0;
+      font-size: 11.5px;
+      line-height: 1.45;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      padding: 16mm 18mm;
+      position: relative;
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: radial-gradient(circle at 90% 10%, rgba(232, 161, 61, 0.09), transparent 45%),
+                  radial-gradient(circle at 10% 90%, rgba(56, 189, 248, 0.06), transparent 45%),
+                  #0e1117;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      border-bottom: 2px solid rgba(232, 161, 61, 0.35);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .header-title-box {
+      flex: 1;
+    }
+
+    .header-title-box h1 {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 800;
+      color: #f8fafc;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-title-box h1 span {
+      color: #e8a13d;
+      font-weight: 700;
+    }
+
+    .header-subtitle {
+      margin: 4px 0 0 0;
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .badge-page {
+      background: rgba(232, 161, 61, 0.15);
+      border: 1px solid #e8a13d;
+      color: #e8a13d;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-left: 12px;
+    }
+
+    /* Grid & Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background: rgba(23, 28, 38, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 10px;
+      padding: 11px 13px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .card-accent-gold {
+      border-top: 3.5px solid #e8a13d;
+    }
+
+    .card-accent-blue {
+      border-top: 3.5px solid #38bdf8;
+    }
+
+    .card-accent-purple {
+      border-top: 3.5px solid #c084fc;
+    }
+
+    .card-accent-green {
+      border-top: 3.5px solid #34d399;
+    }
+
+    .card-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin: 0 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title .icon {
+      font-size: 14px;
+    }
+
+    /* Steps */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+
+    .step-num {
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #e8a13d;
+      color: #0f1115;
+      font-weight: 800;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-text {
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+
+    .step-text b {
+      color: #f8fafc;
+    }
+
+    /* Gesture Table */
+    .table-compact {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 4px;
+      font-size: 10.5px;
+    }
+
+    .table-compact th {
+      text-align: left;
+      padding: 4px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #94a3b8;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .table-compact td {
+      padding: 4.5px 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #e2e8f0;
+    }
+
+    .table-compact tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-gesture {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(232, 161, 61, 0.15);
+      color: #fcd34d;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .badge-result {
+      font-family: 'JetBrains Mono', monospace;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    /* Concept Box */
+    .concept-box {
+      background: rgba(30, 41, 59, 0.65);
+      border-left: 3.5px solid #e8a13d;
+      padding: 8px 11px;
+      border-radius: 0 7px 7px 0;
+      margin-bottom: 8px;
+    }
+
+    .concept-box.purple {
+      border-left-color: #c084fc;
+    }
+
+    .concept-box.blue {
+      border-left-color: #38bdf8;
+    }
+
+    .concept-box.green {
+      border-left-color: #34d399;
+    }
+
+    .concept-title {
+      font-weight: 700;
+      font-size: 11.5px;
+      color: #f8fafc;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .concept-desc {
+      font-size: 10.5px;
+      color: #94a3b8;
+      margin: 0;
+    }
+
+    .concept-desc b {
+      color: #e2e8f0;
+    }
+
+    /* Analogy Box */
+    .analogy-box {
+      background: linear-gradient(135deg, rgba(232, 161, 61, 0.14), rgba(192, 132, 252, 0.09));
+      border: 1px dashed rgba(232, 161, 61, 0.45);
+      border-radius: 8px;
+      padding: 9px 13px;
+      margin-bottom: 12px;
+    }
+
+    .analogy-box p {
+      margin: 0;
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+
+    .analogy-box b {
+      color: #fde047;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 9.5px;
+      color: #64748b;
+    }
+
+    .footer-left {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .highlight-pill {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 9.5px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================= PÁGINA 1: COMO USAR O SISTEMA ======================= -->
+  <div class="page">
+    <div>
+      <!-- Header -->
+      <div class="header">
+        <div class="header-title-box">
+          <h1>Gesture Synth <span>// Manual do Usuário</span></h1>
+          <p class="header-subtitle">Guia Prático • Controle o Sintetizador com o Movimento das Mãos</p>
+        </div>
+        <div class="badge-page">Página 1 • Operação</div>
+      </div>
+
+      <!-- Primeiros Passos -->
+      <div class="card card-accent-gold" style="margin-bottom: 12px;">
+        <div class="card-title"><span class="icon">🚀</span> Como Começar em 3 Passos</div>
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text"><b>Permita o acesso à Webcam:</b> O sistema utiliza visão computacional em tempo real (MediaPipe) para detectar a posição dos dedos e articulações.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text"><b>Clique na tela ("▶ clique para ativar o áudio"):</b> Requisito de segurança dos navegadores para habilitar a saída sonora do sintetizador.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text"><b>Posicione-se em frente à câmera:</b> Mantenha as duas mãos no enquadramento, com iluminação adequada e sem obstruir os dedos.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controles de Mãos (Grid 2 colunas) -->
+      <div class="grid-2">
+        
+        <!-- Mão Esquerda -->
+        <div class="card card-accent-blue">
+          <div class="card-title"><span class="icon">🖐️</span> Mão Esquerda: Acordes & Graus</div>
+          <p style="font-size:10px; color:#94a3b8; margin:0 0 6px 0;">Define <b>qual nota/acorde</b> vai tocar e o seu sentimento (Maior ou Menor).</p>
+          
+          <table class="table-compact">
+            <thead>
+              <tr>
+                <th>Gesto / Dedos</th>
+                <th>Grau Musical</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge-gesture">1 dedo</span> (Indicador)</td>
+                <td><span class="badge-result">Grau I</span> (Tônica / Repouso)</td>
+              </tr>
+              <tr>
+                <td><span class="badge-gesture">2 dedos</span></td>
+                <td><span class="badge-result">Grau II</span></td>
+              </tr>
+              <tr>
+                <td><span class="badge-gesture">3 dedos</span></td>
+                <td><span class="badge-result">Grau III</span></td>
+              </tr>
+              <tr>
+                <td><span class="badge-gesture">4 dedos</span></td>
+                <td><span class="badge-result">Grau IV</span> (Subdominante)</td>
+              </tr>
+              <tr>
+                <td><span class="badge-gesture">5 dedos</span> (Mão aberta)</td>
+                <td><span class="badge-result">Grau V</span> (Dominante)</td>
+              </tr>
+              <tr>
+                <td><span class="badge-gesture">🤘 Indicador + Mindinho</span></td>
+                <td><span class="badge-result">Grau VI</span> (Relativa)</td>
+              </tr>
+              <tr>
+                <td><span class="badge-gesture">🤟 + Polegar</span></td>
+                <td><span class="badge-result">Grau VII</span> (Sensível)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top:8px; padding-top:6px; border-top: 1px solid rgba(255,255,255,0.08); font-size:10.5px;">
+            <b style="color:#38bdf8;">Inclinação do Pulso Esquerdo:</b><br>
+            • <b>Para dentro:</b> Acorde <b style="color:#fde047;">Maior</b> (Alegre / Solar)<br>
+            • <b>Para fora:</b> Acorde <b style="color:#c084fc;">Menor</b> (Melancólico / Triste)
+          </div>
+        </div>
+
+        <!-- Mão Direita -->
+        <div class="card card-accent-purple">
+          <div class="card-title"><span class="icon">✋</span> Mão Direita: Volume, Timbre & Variação</div>
+          <p style="font-size:10px; color:#94a3b8; margin:0 0 6px 0;">Modula a <b>expressão sonora</b>, abertura das notas e dinâmicas.</p>
+
+          <table class="table-compact">
+            <thead>
+              <tr>
+                <th>Dedos Abertos</th>
+                <th>Variação do Acorde</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge-gesture">1 dedo</span></td>
+                <td><span class="badge-result">Posição Fundamental</span> (Padrão)</td>
+              </tr>
+              <tr>
+                <td><span class="badge-gesture">2 dedos</span></td>
+                <td><span class="badge-result">1ª Inversão</span> (Suave)</td>
+              </tr>
+              <tr>
+                <td><span class="badge-gesture">3 dedos</span></td>
+                <td><span class="badge-result">7ª Maior / Menor</span> (Jazz/Lo-Fi)</td>
+              </tr>
+              <tr>
+                <td><span class="badge-gesture">4 dedos</span></td>
+                <td><span class="badge-result">7ª Dominante / Diminuta</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top:8px; display:flex; flex-direction:column; gap:4px; font-size:10.5px;">
+            <div>🔊 <b>Altura da mão:</b> Mais alta = <b>Mais volume</b> | Mais baixa = <b>Mais suave</b>.</div>
+            <div>🎛️ <b>Inclinação:</b> Para fora = <b>Mais Filtro</b> (brilhante); para dentro = <b>Menos Filtro</b> (abafado).</div>
+            <div>🔄 <b>Polegar recolhido:</b> Ativa a <b>oitava mais grave (-8va)</b> para sons encorpados.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Menus e Controles da Interface -->
+      <div class="card card-accent-green">
+        <div class="card-title"><span class="icon">⚙️</span> Menus & Personalização no Topo da Tela</div>
+        <div class="grid-2" style="margin-bottom:0; gap:10px;">
+          <div>
+            <div style="color:#34d399; font-weight:700; margin-bottom:2px;">🎼 Tonalidade (Key Select - Ex: A, C, G...):</div>
+            <p style="margin:0; font-size:10.5px; color:#cbd5e1;">Muda a nota fundamental da música. A escala de 7 notas se adapta automaticamente ao tom escolhido.</p>
+          </div>
+          <div>
+            <div style="color:#34d399; font-weight:700; margin-bottom:2px;">🎹 Timbre do Sintetizador (Tone Select):</div>
+            <p style="margin:0; font-size:10.5px; color:#cbd5e1;">
+              • <b>Synth Suave (Triangular):</b> Redondo e aveludado.<br>
+              • <b>Synth Brilhante (Dente de Serra):</b> Enérgico e marcante.<br>
+              • <b>Synth Retrô (Quadrada):</b> Clássico estilo chiptune 8-bit.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Página 1 -->
+    <div class="footer">
+      <div class="footer-left">
+        <span>Gesture Synth • Visão Computacional & Expressão Sonora</span>
+        <span class="highlight-pill">Dica: Use fones de ouvido para melhor percepção harmônica</span>
+      </div>
+      <div>Página 1 / 2</div>
+    </div>
+  </div>
+
+  <!-- ======================= PÁGINA 2: CONCEITOS MUSICAIS ======================= -->
+  <div class="page">
+    <div>
+      <!-- Header -->
+      <div class="header">
+        <div class="header-title-box">
+          <h1>Desvendando a Música <span>// Teoria para Iniciantes</span></h1>
+          <p class="header-subtitle">Compreenda a magia por trás das notas, acordes e escalas sem complicação</p>
+        </div>
+        <div class="badge-page">Página 2 • Teoria Fácil</div>
+      </div>
+
+      <!-- Analogia Inicial -->
+      <div class="analogy-box">
+        <p>💡 <b>A Música é como a Pintura:</b> Uma <b>Nota</b> é uma cor pura. Um <b>Acorde</b> é uma mistura harmoniosa de tintas. A <b>Escala</b> é a sua paleta com cores que combinam perfeitamente entre si!</p>
+      </div>
+
+      <!-- Grid de Conceitos Fundamentais -->
+      <div class="grid-2">
+        
+        <!-- Bloco 1: Notas e Acordes -->
+        <div class="card card-accent-gold">
+          <div class="card-title"><span class="icon">🎵</span> 1. Notas e Acordes</div>
+          
+          <div class="concept-box">
+            <div class="concept-title">O que é uma Nota Musical?</div>
+            <p class="concept-desc">É um som puro com altura definida (ex: Dó, Ré, Mi... ou C, D, E). É o bloco de construção básico da melodia.</p>
+          </div>
+
+          <div class="concept-box">
+            <div class="concept-title">O que é um Acorde?</div>
+            <p class="concept-desc">É o som de <b>3 ou mais notas tocadas juntas</b>. Juntas, criam uma atmosfera e sustentam a música.</p>
+          </div>
+
+          <div class="concept-box">
+            <div class="concept-title">O que é uma Oitava (-8va)?</div>
+            <p class="concept-desc">É a <b>mesma nota</b>, só que mais aguda (alta) ou mais encorpada/grave (baixa), dobrando ou dividindo a frequência.</p>
+          </div>
+        </div>
+
+        <!-- Bloco 2: Maior vs Menor -->
+        <div class="card card-accent-purple">
+          <div class="card-title"><span class="icon">🎭</span> 2. O Sentimento: Maior vs. Menor</div>
+          
+          <div class="concept-box purple">
+            <div class="concept-title">☀️ Acorde Maior (Major)</div>
+            <p class="concept-desc">Transmite sensação de <b>alegria, clareza, triunfo e energia positiva</b>. (No app: incline o pulso esquerdo para dentro).</p>
+          </div>
+
+          <div class="concept-box blue">
+            <div class="concept-title">🌧️ Acorde Menor (Minor)</div>
+            <p class="concept-desc">Transmite sensação de <b>mistério, introspecção, melancolia ou drama</b>. (No app: incline o pulso esquerdo para fora).</p>
+          </div>
+
+          <div style="font-size:10px; color:#cbd5e1; background:rgba(0,0,0,0.25); padding:6px 8px; border-radius:4px;">
+            ✨ <i>Exemplo:</i> Canções de festa usam muitos acordes maiores; trilhas sonoras emotivas usam acordes menores.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bloco 3: Escalas e Graus -->
+      <div class="card card-accent-blue" style="margin-bottom:12px;">
+        <div class="card-title"><span class="icon">🪜</span> 3. A Escala Musical e os "Graus" (I ao VII)</div>
+        <p style="font-size:10.5px; color:#cbd5e1; margin:0 0 8px 0;">
+          Uma <b>Escala</b> é um caminho harmônico com 7 degraus. Cada degrau é chamado de <b>Grau</b> (I, II, III...):
+        </p>
+
+        <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; font-size:10px;">
+          <div style="background:rgba(255,255,255,0.04); padding:6px; border-radius:5px; border-left:2.5px solid #e8a13d;">
+            <b style="color:#fcd34d;">Grau I (Tônica):</b><br>A "casa" da música. Traz sensação de alívio e finalização.
+          </div>
+          <div style="background:rgba(255,255,255,0.04); padding:6px; border-radius:5px; border-left:2.5px solid #38bdf8;">
+            <b style="color:#38bdf8;">Grau IV (Subdominante):</b><br>Sensação de partida, viagem e expansão do tema.
+          </div>
+          <div style="background:rgba(255,255,255,0.04); padding:6px; border-radius:5px; border-left:2.5px solid #f87171;">
+            <b style="color:#f87171;">Grau V (Dominante):</b><br>Tensão enérgica que "pede" para voltar para o Grau I.
+          </div>
+          <div style="background:rgba(255,255,255,0.04); padding:6px; border-radius:5px; border-left:2.5px solid #c084fc;">
+            <b style="color:#c084fc;">Grau VI (Relativa):</b><br>Tom emotivo e reflexivo, muito usado no pop moderno.
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloco 4: Sofisticação: Inversões, 7ªs e Filtro -->
+      <div class="card card-accent-green">
+        <div class="card-title"><span class="icon">✨</span> 4. Temperos Sonoros: Inversões, Sétimas e Filtros</div>
+        
+        <div class="grid-2" style="margin-bottom:0; gap:10px;">
+          <div>
+            <div class="concept-title" style="color:#34d399;">🔄 Inversões de Acorde</div>
+            <p class="concept-desc">É tocar as mesmas notas do acorde mudando qual delas fica na base. Isso deixa as passagens de acorde <b>mais fluidas e suaves</b>.</p>
+            
+            <div class="concept-title" style="color:#34d399; margin-top:7px;">🎷 Acordes de 7ª (Sétima)</div>
+            <p class="concept-desc">Adiciona uma quarta nota com "tempero especial", muito comum no <b>Jazz, Bossa Nova e Lo-Fi Hip Hop</b>.</p>
+          </div>
+
+          <div>
+            <div class="concept-title" style="color:#38bdf8;">🎛️ Filtro de Frequência (Cutoff)</div>
+            <p class="concept-desc">
+              Funciona como regular a claridade de uma lâmpada:<br>
+              • <b>Filtro Fechado (inclinado p/ dentro):</b> Som escuro, abafado e aconchegante.<br>
+              • <b>Filtro Aberto (inclinado p/ fora):</b> Som brilhante, cortante e cheio de presença.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Página 2 -->
+    <div class="footer">
+      <div class="footer-left">
+        <span>Pronto para criar música! Combine os gestos e divirta-se explorando novas harmonias.</span>
+      </div>
+      <div>Página 2 / 2</div>
+    </div>
+  </div>
+
+</body>
+</html>
